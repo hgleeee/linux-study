@@ -1,7 +1,7 @@
 # Context Switch (유저 모드와 커널 모드 사이의 전환)
 
 ## 과정
-<p align="center"><img src="./images/context_switch_1.png" width="600"></p>
+<p align="center"><img src="./images/context_switch_1.png" width="1000"></p>
 
 #### 1번
 - 유저가 쉘이 띄어 준 프롬프트에 명령어 'ls'를 입력한다. 
@@ -27,13 +27,13 @@
 - (그림에는 7번으로 되어 있음) 높은 우선순위를 가지고 기다리고 있던 프로세스가 없다면, 기존의 부모 프로세스(쉘)는 다시 동작하게 된다.
 
 ## Timesharing
-<p align="center"><img src="./images/context_switch_2.png" width="600"></p>
+<p align="center"><img src="./images/context_switch_2.png" width="1000"></p>
 
 - 위 그림은 쉘의 유저모드와 커널모드를 왔다 갔다 하는 것을 시간 순서로 도식화해놓은 것이다.
 
 ## Struct CPU
 > Kernel의 경우 하드웨어를 위한 자료구조, 즉 테이블이 하나 존재하는데 그 자료구조를 Struct CPU라 한다.
-<p align="center"><img src="./images/context_switch_3.png" width="600"></p>
+<p align="center"><img src="./images/context_switch_3.png" width="1000"></p>
 
 - 위 그림의 상황을 보자면, 먼저 CPU가 P1을 실행시키고 있다. 그리고 P1이 wait(2) 시스템 콜을 호출한다. 시스템 콜을 호출하면서 커널은 CPU state vector(PC, SP 등)를 P1의 PCB에 저장한다.
 - 이렇게 상태 값을 기억하는 이유는 wait(2) 시스템 콜이 끝났을 때 wait(2)을 호출한 프로세스가 다시 정상적으로 작업을 원활하게 진행하기 위해서다. 
@@ -46,7 +46,7 @@
 
 ## Schedule 함수
 > Context Switch에서 중요한 역할을 맡는다.
-<p align="center"><img src="./images/context_switch_4.png" width="600"></p>
+<p align="center"><img src="./images/context_switch_4.png" width="1000"></p>
 
 - schedule()은 internal 함수이고, Kernel a.out에 알려지지 않는 함수다. 
 - internal 함수랑 정반대되는 성격을 가진 것이 바로 시스템 콜이며, 시스템 콜은 커널 a.out에 알려지고 커널 밖에서 부를 수 있다. (커널이 금단의 영역이라면, 시스템 콜은 그 영역에 접근할 수 있는 유일한 방법이다.) 
