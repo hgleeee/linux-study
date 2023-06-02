@@ -42,6 +42,22 @@
 
 ## 우선순위 배열
 <p align="center"><img src="./images/kernel_scheduling_5.png" width="800"></p>
+
+- CPU 스케줄러는 context_switch()가 일어날 때마다 레디큐에서 우선순위가 가장 높은 프로세스를 뽑아야 한다.
+- 이 때 해야 할 작업은 비트맵을 스캔하고 0이 아닌 항목이 있다면, 해당 난이도의 큐를 찾아내서 큐의 작업 내역을 순회하며 실행하는 것이다. 
+- 0이 아닌 비트맵이 있다면 포인터를 따라가서 해당 큐의 작업 내역을 실행하면 된다. 아래 그림을 살펴보자.
+
 <p align="center"><img src="./images/kernel_scheduling_6.png" width="800"></p>
+
+- 레디 큐라는 것은 ready to run a cpu를 의미한다. 즉 바로 실행될 수 있는 프로세스들을 모아둔 큐이다. 
+- 하지만 만약 레디 큐에 있던 프로세스가 자신에게 할당된 타임 슬라이스를 다 썼다면 어떻게 해야할까? 
+- 타임 슬라이스를 다 사용한 프로세스는 위의 그림에서 나타난 노란색 영역(Expired array)으로 빠지게 된다. 
+- 다음 타임 슬라이스를 배정받기 전까지는 레디 큐에 있을 자격이 없기 때문에 Expired array에서 대기하게 된다. 이 두 개의 array는 각 CPU마다 존재한다.
+
 <p align="center"><img src="./images/kernel_scheduling_7.png" width="800"></p>
+
+- 좀 더 정확하게 설명을 하자면, Active 영역에 있는 작업들이 모두 처리된 후 Expired 영역으로 가게 된 프로세스들은 일률적으로 (한 번에) 타임 슬라이스를 배정받게 된다. 
+- 그 뒤 Expired 영역이 Active 영역으로, 기존의 Active 영역은 Expired 영역으로 변환(interchange)된다. 
+- 이 변환 과정은 단순히 서로가 가리키는 포인터가 바뀌는 작업을 의미하는데 구현 코드는 아래 그림의 맨 아래 네모박스에 나와있다.
 <p align="center"><img src="./images/kernel_scheduling_8.png" width="800"></p>
+
