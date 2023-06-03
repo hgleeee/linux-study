@@ -49,5 +49,8 @@ __이처럼 프로세스 간 공유된 변수를 접근하는 부분을 Critical
 
 <p align="center"><img src="./images/mutual_exclusion_3.png" width="800"></p>
 
+- 위의 preempt_count가 lock의 갯수이다. CPU를 뺏으러 왔을 때, preempt_count가 0이면 공용 변수에 접근하는 프로세스가 하나도 없다는 것이기 때문에 CPU를 뺏을 수 있다. 
+- need_resched의 경우는 리얼타임 시스템이 CPU를 다른 프로세스에 할당해주기 위해 왔는데, preempt_count가 0이 아니여서 뺏을 수는 없으니 "지금 다른 우선순위 높은 프로세스가 CPU를 기다리고 있어!"라는 표시를 해주는 용도로 사용한다. 
+- 따라서 preempt_count가 0으로 되고 need_resched 플래그가 세트되어 있다면, 현재 공용변수에 접근하고 있는 것이 없으니 CPU를 다른 프로세스에게 할당해도 좋다는 의미가 된다.
 
 
