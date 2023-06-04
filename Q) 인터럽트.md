@@ -29,9 +29,9 @@
 - 이렇게 요청이 들어온 요청 라인들은 Mask Register을 통해서 0일 경우 차단이 되고 0이 아닐 경우엔 그 다음 단계로 통과가 된다. 이러한 Masking은 소프트웨어적으로 차단할 장치등을 설정할 수 있다. 
 - 그 후에 Interrupt Request Register에서 Masking이 되지 않은 장치들만 요청을 할 수 있게 설정해 주는 단계를 거친다.
 
-- 이렇게 설정이 된 요청들 중 우선순위가 제일 높은 요청을 Priority Register에서 받고 지금 인터럽트 요청이 진행 중 이라고 In Service Register에 등록하고 INTR, 즉 CPU에게 인터럽트 요청을 한다.
-- 이 때, 어떤 IRQ Line에서 요청이 들어온건지를 Vector에 넣어 보낸다. 
-- 그렇게 요청을 보내고 나서 CPU가 요청을 처리 했다는 ACK 신호를 보낼 때 까지 다른 PIC와 장치들은 차단되어 있다. 이러한 요청 처리 단계를 위해 CPU는 빠르게 일들을 처리해 줘야 한다.
+- 이렇게 설정이 된 요청들 중 우선순위가 제일 높은 요청을 Priority Register에서 받고 지금 인터럽트 요청이 진행 중이라고 In Service Register에 등록하고 INTR, 즉 CPU에게 인터럽트 요청을 한다.
+- 이 때, 어떤 IRQ Line에서 요청이 들어온 것인지를 Vector에 넣어 보낸다. 
+- 그렇게 요청을 보내고 나서 CPU가 요청을 처리했다는 ACK 신호를 보낼 때까지 다른 PIC와 장치들은 차단되어 있다. 이러한 요청 처리 단계를 위해 CPU는 빠르게 일들을 처리해 줘야 한다.
 
 <p align="center"><img src="./images/interrupt_4.png" width="800"></p>
 
